@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE suite SYSTEM "testng-1.0.dtd"> -->
+<suite name="ConnectedH Automation">
+
+	<parameter name="browser" value="Chrome" />
+	<parameter name="siteURL"
+		value="https://crm.connectedh.com/login" />
+	<parameter name="userName" value="demo" />
+	<parameter name="password" value="qwerty@123" />
+
+	<test name="ConnectedH Login Test">
+		<classes>
+			<class name="com.connectedh.test.ConnectedHLoginTest" />
+			
+		</classes>
+	</test>
+
+</suite>
