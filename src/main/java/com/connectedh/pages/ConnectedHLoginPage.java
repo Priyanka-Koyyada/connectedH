@@ -19,6 +19,10 @@ public class ConnectedHLoginPage extends BaseConnectedHAutomationPage {
 
 	@FindBy(xpath = "//input[@type='submit']")
 	private WebElement loginButton;
+	
+	@FindBy(xpath = "//div[contains(text(),'Total Revenue')]")
+	private WebElement TotalRevenue;
+	
 
 	private static final Logger logger = Logger.getLogger(ConnectedHLoginPage.class.getName());
 
@@ -68,4 +72,9 @@ public class ConnectedHLoginPage extends BaseConnectedHAutomationPage {
 		logger.info("Ending of getConnectedHDashboardTitle method");
 		return driver.getTitle();
 	}
-}
+	public String getCompaignManagerText() {
+		return TotalRevenue.getText();
+	}
+		
+	}
+

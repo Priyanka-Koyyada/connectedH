@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 public class BaseConnectedHAutomationPage {
@@ -32,5 +33,23 @@ public class BaseConnectedHAutomationPage {
 		js.executeScript("window.scrollBy(0, " + scroll + ")");
 
 		logger.info("Ending of scrollDown method");
+	}
+	
+	public void scrollIntoView(WebElement element) {
+		logger.info("Starting of scrollIntoView method");
+
+		JavascriptExecutor jsExec = (JavascriptExecutor) driver;
+		jsExec.executeScript("arguments[0].scrollIntoView(true);", element);
+
+		logger.info("Ending of scrollIntoView method");
+	}
+	
+	public void mouseHoverActions(WebElement webElement) {
+		logger.info("Starting of mouseHoverActions method");
+
+		Actions actions = new Actions(driver);
+		actions.moveToElement(webElement).click().build().perform();
+
+		logger.info("Ending of mouseHoverActions method");
 	}
 }

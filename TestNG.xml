@@ -8,9 +8,16 @@
 	<parameter name="userName" value="demo" />
 	<parameter name="password" value="qwerty@123" />
 
+	<listeners>
+		<listener class-name="com.connectedh.util.TestListener"></listener>
+	</listeners>
+
 	<test name="ConnectedH Login Test">
 		<classes>
 			<class name="com.connectedh.test.ConnectedHLoginTest" />
+			<class name="com.connectedh.test.ConnectedHLogOutTest" />
+			<class name="com.connectedh.test.ConnectedHBookingManagerTest" />
+			<class name="com.connectedh.test.ConnectedHAddPhleboTest" />
 			
 		</classes>
 	</test>

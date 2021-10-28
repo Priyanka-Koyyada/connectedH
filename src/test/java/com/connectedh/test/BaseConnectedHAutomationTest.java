@@ -16,7 +16,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 import com.connectedh.pages.ConnectedHLoginPage;
@@ -29,6 +28,7 @@ public class BaseConnectedHAutomationTest {
 	private static final Logger logger = Logger.getLogger(BaseConnectedHAutomationTest.class.getName());
 
 	protected ConnectedHLoginPage loginPage = null;
+	protected WebDriver driver = null;
 
 	protected static Properties expectedAssertionsProp = null;
 	protected static Properties testDataProp = null;
@@ -37,7 +37,7 @@ public class BaseConnectedHAutomationTest {
 
 	protected enum WEB_DRIVER {
 
-		LOGIN_DRIVER, BOOKING_DRIVER, NEGATIVE_LOGIN_DRIVER;
+		LOGIN_DRIVER, BOOKING_DRIVER, PHLEBO_DRIVER;
 	}
 
 	@BeforeSuite
@@ -76,6 +76,11 @@ public class BaseConnectedHAutomationTest {
 
 		WebDriver driver = webDriverPool.get(webDriver);
 
+		if (driver != null) {
+			logger.debug("Using existing web driver " + webDriver);
+			return driver;
+		}
+
 		String osPath = System.getProperty("os.name");
 		if (osPath.contains("Linux")) {
 
@@ -106,7 +111,11 @@ public class BaseConnectedHAutomationTest {
 
 			if (browser.equalsIgnoreCase("Chrome")) {
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+				ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions.addArguments("allow-file-access-from-files");
+				chromeOptions.addArguments("use-fake-device-for-media-stream");
+				chromeOptions.addArguments("use-fake-ui-for-media-stream");
+				driver = new ChromeDriver(chromeOptions);
 			} else if (browser.equalsIgnoreCase("Firefox")) {
 				WebDriverManager.firefoxdriver().setup();
 				driver = new FirefoxDriver();
@@ -152,7 +161,7 @@ public class BaseConnectedHAutomationTest {
 		logger.info("Ending of method quitDriver in BaseConnectedHAutomationTest");
 	}
 
-	@AfterSuite
+	// @AfterSuite
 	protected synchronized void quitAllDrivers() {
 		logger.info("Starting of method quitAllDrivers in BaseConnectedHAutomationTest ");
 
